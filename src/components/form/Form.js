@@ -7,7 +7,20 @@ export default function Form(){
     evt.preventDefault();
     alert(`Submitting username ${username}`);
     console.log(username);
+
+    let data = getProfile();
+    console.log(data);
   }
+
+  async function getProfile() {
+    let url = 'https://api.github.com/users/'+username;
+    try {
+        let res = await fetch(url);
+        return await res.json();
+    } catch (error) {
+        console.log(error);
+    }
+}
 
   return (
     <form onSubmit={handleSubmit}>
