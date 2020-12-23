@@ -2,17 +2,26 @@ import React, {useState} from "react";
 
 export default function Follower({followers}){
   return(
-    <div>
-      <p> Followers are </p>
-      <ul>
-          {followers.map((follower) => {
-            return (
-              <li>
-                {follower.name} has {follower.contribCount} contributions this year
-              </li>
-            );
-          })}
-      </ul>
-    </div>
+    <div className="container">
+            <h1>Followers table</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number of contributions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {
+                        followers.map((follower) => (
+                            <tr>
+                                <td>{follower.name}</td>
+                                <td>{follower.contribCount}</td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        </div>
   );
 }
