@@ -35,7 +35,7 @@ export default function Form({setCount, setFollowers, setLoading}){
     const timer = setTimeout(() => {
       followers.sort(comparator);
       setFollowers(followers);
-    }, 4000);
+    }, 2000);
 
   }
 
