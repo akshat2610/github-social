@@ -16,8 +16,6 @@ function App() {
     return (
       <div>
         <Form setCount={setCount} setFollowers={setFollowers} setLoading={setLoading}/>
-        <Counter count={count}/>
-        <Follower followers={followers}/>
         <Graph followers={followers} />
       </div>
     );

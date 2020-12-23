@@ -3,7 +3,7 @@ import React, {useState} from "react";
 export default function Follower({followers}){
   return(
     <div className="container">
-            <h1>Followers table</h1>
+            <h3>Followers table</h3>
             <table>
                 <thead>
                 <tr>
