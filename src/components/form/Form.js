@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Form({setCount, setFollowers}){
+export default function Form({setCount, setFollowers, setLoading}){
   const [username, setName] = useState("");
 
   const  handleSubmit = (evt) => {
@@ -11,10 +11,9 @@ export default function Form({setCount, setFollowers}){
       setCount(res.data.user.contributionsCollection.contributionCalendar.totalContributions)});
 
     setFollowers([]);
-
+    const followers = [];
     getFollowers(username)
     .then(res => {
-      const followers = [];
       for (let i = 0; i < res.length; i++){
         const follower = {name: '', contribCount: 0};
         follower.name = res[i].login;
@@ -22,12 +21,17 @@ export default function Form({setCount, setFollowers}){
         getContributions("58c5a09b27ac1eea40d75f849ae9e7cf548741ec", follower.name)
         .then(res => {
           follower.contribCount = res.data.user.contributionsCollection.contributionCalendar.totalContributions;
+          console.log("Adding " + follower.name + " to followers");
           followers.push(follower);
         });
+
       }
-      console.log(followers);
+    });
+
+    const timer = setTimeout(() => {
+      followers.sort(comparator);
       setFollowers(followers);
-    })
+    }, 2000);
 
   }
 
@@ -58,6 +62,16 @@ async function getFollowers(username) {
     const data = await response.json();
 
     return data;
+}
+
+function comparator(a, b){
+  if (a.contribCount < b.contribCount){
+    return 1;
+  }
+  else if (a.contribCount > b.contribCount){
+    return -1;
+  }
+  else return 0;
 }
 
 return (
