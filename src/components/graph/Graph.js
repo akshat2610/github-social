@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {Bar} from "react-chartjs-2";
+import "./Graph.css";
 
 export default function Graph({followers}){
   const names = []
@@ -24,7 +25,7 @@ export default function Graph({followers}){
 }
 
   return(
-      <div>
+      <div id="graph">
         <Bar
           data={state}
           options={{

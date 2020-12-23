@@ -1,17 +1,21 @@
 import React, { useState } from "react";
+import "./Form.css";
 
 export default function Form({setCount, setFollowers, setLoading}){
   const [username, setName] = useState("");
 
   const  handleSubmit = (evt) => {
     evt.preventDefault();
+    const followers = [];
 
     getContributions("58c5a09b27ac1eea40d75f849ae9e7cf548741ec", username)
       .then(res => {
+      const user = {name: "***YOU***", contribCount: res.data.user.contributionsCollection.contributionCalendar.totalContributions};
+      followers.push(user);
       setCount(res.data.user.contributionsCollection.contributionCalendar.totalContributions)});
 
     setFollowers([]);
-    const followers = [];
+
     getFollowers(username)
     .then(res => {
       for (let i = 0; i < res.length; i++){
@@ -31,7 +35,7 @@ export default function Form({setCount, setFollowers, setLoading}){
     const timer = setTimeout(() => {
       followers.sort(comparator);
       setFollowers(followers);
-    }, 2000);
+    }, 4000);
 
   }
 
