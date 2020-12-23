@@ -1,36 +1,41 @@
 import React, { useState } from "react";
 
-export default function Form({setCount}){
+export default function Form({setCount, setFollowers}){
   const [username, setName] = useState("");
 
-  const handleSubmit = (evt) => {
+  const  handleSubmit = (evt) => {
     evt.preventDefault();
-    alert(`Submitting username ${username}`);
-    console.log(username);
 
-    const {result, error} = getContributions("58c5a09b27ac1eea40d75f849ae9e7cf548741ec", username)
+    getContributions("58c5a09b27ac1eea40d75f849ae9e7cf548741ec", username)
       .then(res => {
-      return res.data.user.contributionsCollection.contributionCalendar.totalContributions});
+      setCount(res.data.user.contributionsCollection.contributionCalendar.totalContributions)});
 
-    console.log("Received from getContributions...: " + result );
+    setFollowers([]);
+
+    getFollowers(username)
+    .then(res => {
+      const followers = [];
+      for (let i = 0; i < res.length; i++){
+        const follower = {name: '', contribCount: 0};
+        follower.name = res[i].login;
+
+        getContributions("58c5a09b27ac1eea40d75f849ae9e7cf548741ec", follower.name)
+        .then(res => {
+          follower.contribCount = res.data.user.contributionsCollection.contributionCalendar.totalContributions;
+          followers.push(follower);
+        });
+      }
+      console.log(followers);
+      setFollowers(followers);
+    })
 
   }
 
-async function getProfile() {
-    let url = 'https://api.github.com/users/'+username;
-    try {
-        let res = await fetch(url);
-        return await res.json();
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 async function getContributions(token, username) {
   const headers = {
       'Authorization': `bearer ${token}`,
   }
-  console.log(typeof(username));
   const body = {
       "query": `query {
                   user(login:"${username}"){
@@ -43,15 +48,19 @@ async function getContributions(token, username) {
                 }`
   }
   const response = await fetch('https://api.github.com/graphql', { method: 'POST', body: JSON.stringify(body), headers: headers })
-    const data = await response.json()
-    console.log(data);
-    console.log("New function")
-    console.log(data.data.user.contributionsCollection.contributionCalendar.totalContributions);
-    setCount(data.data.user.contributionsCollection.contributionCalendar.totalContributions);
+    const data = await response.json();
+
     return data;
 }
 
-  return (
+async function getFollowers(username) {
+    const response = await fetch('https://api.github.com/users/' + username + '/following');
+    const data = await response.json();
+
+    return data;
+}
+
+return (
     <form onSubmit={handleSubmit}>
       <label>
         Username:
