@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Form from "../components/form/Form";
+import Counter from "../components/counter/Counter";
 
 export default class Main extends Component{
   constructor(props){
@@ -10,6 +11,7 @@ export default class Main extends Component{
     return (
       <div>
         <Form />
+        <Counter />
       </div>
     );
   }

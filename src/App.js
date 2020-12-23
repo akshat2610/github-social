@@ -1,13 +1,18 @@
+import React, { useRef, useState, useEffect } from "react";
 import './App.css';
 import Main from "./containers/Main";
+import Form from "./components/form/Form";
+import Counter from "./components/counter/Counter";
 
 function App() {
-  return (
-    <div className="App">
-      <h1> GitHub social app </h1>
-      <Main />
-    </div>
-  );
+  const [count, setCount] = useState(0);
+
+    return (
+      <div>
+        <Form setCount={setCount}/>
+        <Counter count={count}/>
+      </div>
+    );
 }
 
 export default App;
