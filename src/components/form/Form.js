@@ -80,15 +80,13 @@ function comparator(a, b){
 
 return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Username:
         <input
           type="text"
+          placeholder="GitHub username"
           value={username}
           onChange={e => setName(e.target.value)}
         />
-      </label>
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Go" />
     </form>
   );
 }

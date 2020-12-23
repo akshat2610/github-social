@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Bar} from "react-chartjs-2";
 import "./Graph.css";
+import Zoom from 'react-reveal/Zoom';
 
 export default function Graph({followers}){
   const names = []
@@ -25,6 +26,7 @@ export default function Graph({followers}){
 }
 
   return(
+    <Zoom>
       <div id="graph">
         <Bar
           data={state}
@@ -41,5 +43,6 @@ export default function Graph({followers}){
           }}
         />
       </div>
+      </Zoom>
   );
 }
