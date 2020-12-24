@@ -8,11 +8,16 @@ export default function Form({setCount, setFollowers, setLoading}){
     evt.preventDefault();
     const followers = [];
 
-    getContributions("58c5a09b27ac1eea40d75f849ae9e7cf548741ec", username)
+    console.log(username);
+
+    getContributions("201f8d5532ef7f086ed5495cd02f95567e651602", username)
       .then(res => {
       const user = {name: "***YOU***", contribCount: res.data.user.contributionsCollection.contributionCalendar.totalContributions};
       followers.push(user);
-      setCount(res.data.user.contributionsCollection.contributionCalendar.totalContributions)});
+      setCount(res.data.user.contributionsCollection.contributionCalendar.totalContributions)})
+      .catch(err => {
+        alert('Could not find username ' + username);
+      });
 
     setFollowers([]);
 
@@ -22,7 +27,7 @@ export default function Form({setCount, setFollowers, setLoading}){
         const follower = {name: '', contribCount: 0};
         follower.name = res[i].login;
 
-        getContributions("58c5a09b27ac1eea40d75f849ae9e7cf548741ec", follower.name)
+        getContributions("201f8d5532ef7f086ed5495cd02f95567e651602", follower.name)
         .then(res => {
           follower.contribCount = res.data.user.contributionsCollection.contributionCalendar.totalContributions;
           console.log("Adding " + follower.name + " to followers");
