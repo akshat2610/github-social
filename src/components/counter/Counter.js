@@ -3,7 +3,7 @@ import "./Counter.css";
 import Flash from 'react-reveal/Flash';
 
 export default function Counter({count}){
-  const lastDay = new Date("12/31/2020");
+  const lastDay = new Date("12/31/2021");
   const currentDay = new Date();
 
   const ms = lastDay.getTime() - currentDay.getTime();

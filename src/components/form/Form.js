@@ -10,7 +10,7 @@ export default function Form({setCount, setFollowers, setLoading}){
 
     console.log(username);
 
-    getContributions("201f8d5532ef7f086ed5495cd02f95567e651602", username)
+    getContributions("522b81b4df35cf346f7dfec77371865ddae338d7", username)
       .then(res => {
       const user = {name: "***YOU***", contribCount: res.data.user.contributionsCollection.contributionCalendar.totalContributions};
       followers.push(user);
@@ -27,7 +27,7 @@ export default function Form({setCount, setFollowers, setLoading}){
         const follower = {name: '', contribCount: 0};
         follower.name = res[i].login;
 
-        getContributions("201f8d5532ef7f086ed5495cd02f95567e651602", follower.name)
+        getContributions("522b81b4df35cf346f7dfec77371865ddae338d7", follower.name)
         .then(res => {
           follower.contribCount = res.data.user.contributionsCollection.contributionCalendar.totalContributions;
           console.log("Adding " + follower.name + " to followers");
